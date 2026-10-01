@@ -40,6 +40,7 @@ describe('Gilded Rose', () => {
     expect(items[0].quality).toBe(18);
   });
 
+
   it("L'objet Aged Brie augmente sa qualité de 1 plus le temps passe", () => {
     const items = [new Item("Aged Brie", 10, 20)];
     const gildedRose = new GildedRose(items);
@@ -66,6 +67,16 @@ describe('Gilded Rose', () => {
 
     expect(items[0].quality).toBe(22);
   });
+
+  it("Un Aged Brie expiré ne peut pas dépasser 50 de qualité", () => {
+    const items = [new Item("Aged Brie", 0, 50)];
+    const gildedRose = new GildedRose(items);
+
+    gildedRose.updateQuality();
+
+    expect(items[0].quality).toBe(50);
+  });
+
 
   it("L'objet Sulfuras ne change pas de qualité", () => {
     const items = [new Item("Sulfuras, Hand of Ragnaros", 10, 80)];
@@ -120,6 +131,31 @@ describe('Gilded Rose', () => {
 
     expect(items[0].quality).toBe(0);
   });
+
+  it("Un Backstage Pass à 5 jours ne dépasse pas 50 de qualité", () => {
+    const items = [
+      new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
+    ];
+    const gildedRose = new GildedRose(items);
+
+    gildedRose.updateQuality();
+
+    expect(items[0].quality).toBe(50);
+  });
+
+  it("L'objet Backstage passes ne peut pas dépasser 50 de qualité", () => {
+    const items = [
+      new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
+    ];
+    const gildedRose = new GildedRose(items);
+
+    gildedRose.updateQuality();
+
+    expect(items[0].quality).toBe(50);
+  });
+
+
+
 
 });
 
