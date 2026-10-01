@@ -8,8 +8,11 @@ describe('Gilded Rose', () => {
   });
 
   it('Un objet normal perd 1 de qualité par jour', () => {
-    const gildedRose = new GildedRose([new Item('Elixir of the Mongoose', 10, 20)]);
-    const items = gildedRose.updateQuality();
+    const items = [new Item("Elixir of the Mongoose", 10, 20)];
+    const gildedRose = new GildedRose(items);
+
+    gildedRose.updateQuality();
+
     expect(items[0].quality).toBe(19);
   });
 
@@ -76,7 +79,6 @@ describe('Gilded Rose', () => {
 
     expect(items[0].quality).toBe(50);
   });
-
 
   it("L'objet Sulfuras ne change pas de qualité", () => {
     const items = [new Item("Sulfuras, Hand of Ragnaros", 10, 80)];
@@ -154,5 +156,31 @@ describe('Gilded Rose', () => {
     expect(items[0].quality).toBe(50);
   });
 
+  it("Un objet Conjured perd 2 de qualité par jour", () => {
+    const items = [new Item("Conjured Mana Cake", 10, 20)];
+    const gildedRose = new GildedRose(items);
+
+    gildedRose.updateQuality();
+
+    expect(items[0].quality).toBe(18);
+  });
+
+  it("Un objet Conjured perd 4 de qualité après date de péremption", () => {
+    const items = [new Item("Conjured Mana Cake", 0, 20)];
+    const gildedRose = new GildedRose(items);
+
+    gildedRose.updateQuality();
+
+    expect(items[0].quality).toBe(16);
+  });
+
+  it("Un objet Conjured ne peut pas avoir une qualité négative", () => {
+    const items = [new Item("Conjured Mana Cake", 10, 1)];
+    const gildedRose = new GildedRose(items);
+
+    gildedRose.updateQuality();
+
+    expect(items[0].quality).toBe(0);
+  });
 });
 
