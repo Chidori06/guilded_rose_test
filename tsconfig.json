@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "types": [
+      "vitest/globals"
+    ],
     "target": "es5",
     "strict": true,
     "noImplicitAny": false,
