@@ -103,7 +103,6 @@ export class GildedRose {
               this.decreaseQualityConjured(item);
             }
           }
-
           break;
 
         default:
