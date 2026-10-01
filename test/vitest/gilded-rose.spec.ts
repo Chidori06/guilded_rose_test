@@ -85,7 +85,41 @@ describe('Gilded Rose', () => {
     expect(items[0].sellIn).toBe(10);
   });
 
+  it("L'objet Backstage Passes gagne 1 de qualité quand il reste plus de 10 jours", () => {
+    const items = [new Item("Backstage passes to a TAFKAL80ETC concert", 11, 20)];
+    const gildedRose = new GildedRose(items);
 
+    gildedRose.updateQuality();
+
+    expect(items[0].quality).toBe(21);
+  });
+
+  it("L'objet Backstage Passes gagne 2 de qualité quand il reste 10 jours ou moins", () => {
+    const items = [new Item("Backstage passes to a TAFKAL80ETC concert", 10, 20)];
+    const gildedRose = new GildedRose(items);
+
+    gildedRose.updateQuality();
+
+    expect(items[0].quality).toBe(22);
+  });
+
+  it("L'objet Backstage Passes gagne 3 de qualité quand il reste 5 jours ou moins", () => {
+    const items = [new Item("Backstage passes to a TAFKAL80ETC concert", 5, 20)];
+    const gildedRose = new GildedRose(items);
+
+    gildedRose.updateQuality();
+
+    expect(items[0].quality).toBe(23);
+  });
+
+  it("L'objet Backstage Passes tombe à 0 de qualité quand il reste 5 jours ou moins", () => {
+    const items = [new Item("Backstage passes to a TAFKAL80ETC concert", 0, 20)];
+    const gildedRose = new GildedRose(items);
+
+    gildedRose.updateQuality();
+
+    expect(items[0].quality).toBe(0);
+  });
 
 });
 
