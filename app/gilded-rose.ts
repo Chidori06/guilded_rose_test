@@ -33,6 +33,17 @@ export class GildedRose {
     item.sellIn--;
   }
 
+  //Conjured
+  decreaseQualityConjured(item) {
+    if (item.quality > 0) {
+      this.decreaseQuality(item);
+    }
+    if (item.quality > 0) {
+      this.decreaseQuality(item);
+    }
+  }
+
+
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
@@ -79,6 +90,20 @@ export class GildedRose {
           break;
 
         case "Sulfuras, Hand of Ragnaros":
+          break;
+
+        //Ajout des conjured
+        case "Conjured Mana Cake":
+          this.decreaseQualityConjured(item);
+
+          this.decreaseSellIn(item);
+
+          if (item.sellIn < 0) {
+            if (item.quality > 0) {
+              this.decreaseQualityConjured(item);
+            }
+          }
+
           break;
 
         default:
